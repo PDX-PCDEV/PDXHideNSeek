@@ -6,7 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Core extends JavaPlugin implements Listener{
 	
 	public void onEnable() {
-		getLogger().info("test");
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvent(this, this);
 	}
 	
 	public void onDisbale() {

@@ -1,5 +1,7 @@
 package me.admin.hideandseek.utils;
 
+import me.admin.hideandseek.Core;
+
 public enum GameStates {
 
 	IN_GAME ("In Game", false), PRE_GAME ("Pre Game", true), POST_GAME ("Post Game", false), REBOOTING ("Rebooting", false);
@@ -7,6 +9,7 @@ public enum GameStates {
 	
 	String gameState;
 	boolean canJoin;
+	
 	
 	private GameStates(String state, boolean canJoin) {
 		gameState = state;
@@ -26,5 +29,9 @@ public enum GameStates {
 		GameStates[] gs = {IN_GAME, PRE_GAME, POST_GAME, REBOOTING};
 	
 		return gs;
+	}
+	
+	public static void setState(GameStates state) {
+		Core.state = state;
 	}
 }

@@ -5,4 +5,4 @@ description: This is the Official code of PDX's Hide and Seek gamemode.
 main: me.admin.hideandseek.Core
 commands:
   admin:
-    descriptoion: administrator command for game
+    descriptoion: administrator command for minigame

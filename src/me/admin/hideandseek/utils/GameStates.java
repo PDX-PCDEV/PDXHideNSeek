@@ -9,6 +9,7 @@ public enum GameStates {
 	
 	String gameState;
 	boolean canJoin;
+	private static GameStates state;
 	
 	
 	private GameStates(String state, boolean canJoin) {
@@ -21,7 +22,7 @@ public enum GameStates {
 		return gameState;
 	}
 	
-	public boolean isJoinable() {
+	public boolean isJoin() {
 		return canJoin;
 	}
 	
@@ -32,6 +33,10 @@ public enum GameStates {
 	}
 	
 	public static void setState(GameStates state) {
-		Core.state = state;
+		GameStates.state = state;
+	}
+	
+	public static boolean isState(GameStates state) {
+		return GameStates.state == state;
 	}
 }

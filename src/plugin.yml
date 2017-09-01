@@ -1,0 +1,7 @@
+name: HaS
+version: 1.0
+main: me.admin.hideandseek.Core
+commands:
+commands:
+    setlobby:
+        description: setlobby cmd

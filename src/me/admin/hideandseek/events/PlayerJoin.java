@@ -15,7 +15,7 @@ import me.admin.hideandseek.utils.GameStates;
 public class PlayerJoin implements Listener{
 	
 	GameStates state;
-	private me.admin.hideandseek.Core spawnPoint;
+	private Core spawnPoint;
 
     public PlayerJoin(Core spawnPoint)
     {

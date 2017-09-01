@@ -19,7 +19,11 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.admin.hideandseek.commands.SetLobbyCommand;
+import me.admin.hideandseek.events.BlockEvents;
+import me.admin.hideandseek.events.DamageEvent;
+import me.admin.hideandseek.events.InteractEvent;
 import me.admin.hideandseek.events.PlayerJoin;
+import me.admin.hideandseek.events.PlayerLeave;
 import me.admin.hideandseek.utils.Countdown;
 import me.admin.hideandseek.utils.GameStates;
 
@@ -36,6 +40,10 @@ public class Core extends JavaPlugin implements Listener{
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this, this);
 		pm.registerEvents(new PlayerJoin(this), this);
+		pm.registerEvents(new DamageEvent(), this);
+		pm.registerEvents(new InteractEvent(), this);
+		pm.registerEvents(new BlockEvents(), this);
+		pm.registerEvents(new PlayerLeave(), this);
 		instance = this;
 		
 		GameStates.setState(GameStates.PRE_GAME);
@@ -142,7 +150,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer4.setScore(2);
     		
     		
-    		Score websiteurl = lobbyo.getScore("§5      pdx-mc.com");
+    		Score websiteurl = lobbyo.getScore("§5    pdx-mc.com");
     		websiteurl.setScore(1);
 
     		
@@ -220,7 +228,7 @@ public class Core extends JavaPlugin implements Listener{
 		
 		public void registerLobbyConfig() {
 			getConfig().options().copyDefaults(true);
-			saveDefaultConfig();
+			saveConfig();
 		}
 		
 		private void registerLobbyFiles() {

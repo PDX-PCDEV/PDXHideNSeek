@@ -9,6 +9,8 @@ public class Countdown {
 	
 	static Core pl;
 	
+	GameStates state;
+	
 	static int taskID;
 	
 	public static int timer = 100;
@@ -33,17 +35,19 @@ public class Countdown {
 		 taskID = Core.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask((Core.getInstance()), new BukkitRunnable(){
 			@Override
 			public void run() {
-				if (timer != 0) {
-					timer--;
-				}else {
-					if (Bukkit.getServer().getOnlinePlayers().size() < 3) {
-						Bukkit.broadcastMessage("§5** §dGame is still in development!");
-						restartTimer();
+				if (state.isState(state.PRE_GAME)) {
+					if (timer != 0) {
+						timer--;
+						formatIntoHHMMSS();
 					}else {
-						//TODO BEGIN THE GAME HERE
+						if (Bukkit.getServer().getOnlinePlayers().size() <= 3) {
+							Bukkit.broadcastMessage("§5** §dNot enough players to start! Please wait until more join!§d");
+							restartTimer();
+						}else {
+							//TODO BEGIN THE GAME HERE
+						}
 					}
 				}
-				formatIntoHHMMSS();
 			}
 			 
 		 }, 20L, 20L);

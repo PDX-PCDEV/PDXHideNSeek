@@ -1,6 +1,7 @@
 package me.admin.hideandseek.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,13 +25,13 @@ public class PlayerJoin implements Listener{
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		player.setGameMode(GameMode.SURVIVAL);
+		player.getInventory().clear();
 		if (state.isState(state.PRE_GAME)) {
-		Player p = event.getPlayer();
-		
 		FileConfiguration i = this.spawnPoint.getLobby();
-        if (!i.contains("world"))
-        {
-            p.sendMessage("§4** §cLobby not set. Contact a senior member of staff.");
+        if (!i.contains("world")){
+            player.sendMessage("§4** §cLobby not set. Contact a senior member of staff.");
             return;
         }
         World w = Bukkit.getWorld(i.getString("world"));
@@ -40,9 +41,13 @@ public class PlayerJoin implements Listener{
         float yaw = (float)i.getDouble("yaw");
         float pitch = (float)i.getDouble("pitch");
         Location loc = new Location(w, x, y, z, yaw, pitch);
-        p.teleport(loc);
+        player.teleport(loc);
         
-        event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined! §d(" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")");
+        if (state.isState(state.PRE_GAME)) {
+        	event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined! §d(" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")");
+        }else {
+        	event.setJoinMessage(null);
+        }
 		}else {
 			
 			//TODO SET THEM TO SPECTATOR IN THE MIDDLE OF THE MAP

@@ -21,7 +21,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import me.admin.hideandseek.commands.SetLobbyCommand;
 import me.admin.hideandseek.events.BlockEvents;
 import me.admin.hideandseek.events.DamageEvent;
-import me.admin.hideandseek.events.InteractEvent;
+import me.admin.hideandseek.events.FoodLevelEvent;
 import me.admin.hideandseek.events.PlayerJoin;
 import me.admin.hideandseek.events.PlayerLeave;
 import me.admin.hideandseek.utils.Countdown;
@@ -41,7 +41,7 @@ public class Core extends JavaPlugin implements Listener{
 		pm.registerEvents(this, this);
 		pm.registerEvents(new PlayerJoin(this), this);
 		pm.registerEvents(new DamageEvent(), this);
-		pm.registerEvents(new InteractEvent(), this);
+		pm.registerEvents(new FoodLevelEvent(), this);
 		pm.registerEvents(new BlockEvents(), this);
 		pm.registerEvents(new PlayerLeave(), this);
 		instance = this;

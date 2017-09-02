@@ -45,6 +45,7 @@ public class Countdown {
 							restartTimer();
 						}else {
 							//TODO BEGIN THE GAME HERE
+							state.setState(state.IN_GAME);
 						}
 					}
 				}

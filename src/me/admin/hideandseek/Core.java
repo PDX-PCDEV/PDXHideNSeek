@@ -20,12 +20,13 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.admin.hideandseek.commands.SetLobbyCommand;
 import me.admin.hideandseek.events.BlockEvents;
+import me.admin.hideandseek.events.ChatFormatting;
 import me.admin.hideandseek.events.DamageEvent;
 import me.admin.hideandseek.events.FoodLevelEvent;
-import me.admin.hideandseek.events.PlayerJoin;
-import me.admin.hideandseek.events.PlayerLeave;
+import me.admin.hideandseek.events.PlayerLeaveJoin;
 import me.admin.hideandseek.utils.Countdown;
 import me.admin.hideandseek.utils.GameStates;
+import net.minecraft.server.v1_12_R1.MinecraftServer;
 
 public class Core extends JavaPlugin implements Listener{
 
@@ -36,15 +37,21 @@ public class Core extends JavaPlugin implements Listener{
     private FileConfiguration lobby;
 	
 	
+	@SuppressWarnings("deprecation")
 	public void onEnable() {
+		
+		//REGISTERING EVENTS GO HERE
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this, this);
-		pm.registerEvents(new PlayerJoin(this), this);
+		pm.registerEvents(new PlayerLeaveJoin(this), this);
 		pm.registerEvents(new DamageEvent(), this);
 		pm.registerEvents(new FoodLevelEvent(), this);
+		pm.registerEvents(new ChatFormatting(), this);
 		pm.registerEvents(new BlockEvents(), this);
-		pm.registerEvents(new PlayerLeave(), this);
 		instance = this;
+		
+		//EXTRA SHITE GOES HERE
+		MinecraftServer.getServer().setMotd("Â§dÂ§lPARADOXÂ§5NETWORK Â§eá´®á´±áµ€á´¬ Â§aâ–º Â§cCurrently playing Hide and Seek on Â§4" + getServer().getServerName().toUpperCase() + "Â§c!");
 		
 		GameStates.setState(GameStates.PRE_GAME);
 		countdown.startCountdown();
@@ -56,6 +63,8 @@ public class Core extends JavaPlugin implements Listener{
 		registerLobbyConfig();
 		registerLobbyFiles();
 		
+		
+		//COMMANDS GO HERE!
 		getCommand("setlobby").setExecutor(new SetLobbyCommand(this));
 		
 	
@@ -118,7 +127,7 @@ public class Core extends JavaPlugin implements Listener{
             final Objective lobbyo = sBoard.registerNewObjective("Lobby", "dummeh");
 
             
-            lobbyo.setDisplayName("§5§lLobby");
+            lobbyo.setDisplayName("Â§5Â§lLobby");
     		lobbyo.setDisplaySlot(DisplaySlot.SIDEBAR);
     		
     		
@@ -126,7 +135,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer1.setScore(8);
     		
     		
-    		Score servername = lobbyo.getScore("§fServer: §d" + getServer().getServerName().toUpperCase());
+    		Score servername = lobbyo.getScore("Â§fServer: Â§d" + getServer().getServerName().toUpperCase());
     		servername.setScore(7);
     		
     		
@@ -134,7 +143,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer2.setScore(6);
     		
     		
-    		Score timeleft = lobbyo.getScore("§fTime left: §d" + countdown.getCurrentTimer());
+    		Score timeleft = lobbyo.getScore("Â§fTime left: Â§d" + countdown.getCurrentTimer());
     		timeleft.setScore(5);
     		
     		
@@ -142,7 +151,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer3.setScore(4);
     		
     		
-    		Score playercount = lobbyo.getScore("§fPlayers: §d" + getServer().getOnlinePlayers().size() + "/" + getServer().getMaxPlayers());
+    		Score playercount = lobbyo.getScore("Â§fPlayers: Â§d" + getServer().getOnlinePlayers().size() + "/" + getServer().getMaxPlayers());
     		playercount.setScore(3);
     		
     		
@@ -150,7 +159,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer4.setScore(2);
     		
     		
-    		Score websiteurl = lobbyo.getScore("§5    pdx-mc.com");
+    		Score websiteurl = lobbyo.getScore("Â§5    pdx-mc.com");
     		websiteurl.setScore(1);
 
     		
@@ -166,7 +175,7 @@ public class Core extends JavaPlugin implements Listener{
             final Objective ingameo = sBoardGAME.registerNewObjective("Lobby", "dummeh");
 
             
-            ingameo.setDisplayName("§d§lHIDE N' SEEK");
+            ingameo.setDisplayName("Â§dÂ§lHIDE N' SEEK");
             ingameo.setDisplaySlot(DisplaySlot.SIDEBAR);
     		
             
@@ -174,7 +183,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer1.setScore(9);
     		
     		
-    		Score servername = ingameo.getScore("§fYour Block: §d"); //TODO ADD THEY BLOCK THEY ARE HERE
+    		Score servername = ingameo.getScore("Â§fYour Block: Â§d"); //TODO ADD THEY BLOCK THEY ARE HERE
     		servername.setScore(8);
     		
     		
@@ -182,7 +191,7 @@ public class Core extends JavaPlugin implements Listener{
     		spacer2.setScore(7);
     		
     		
-    		Score timeleft = ingameo.getScore("§fTime left: §d"); //TODO ADD COUNTDOWN CLOCK HERE, TO THE END OF THE GAME (LASTS FOR MAX OF 5 minutes)
+    		Score timeleft = ingameo.getScore("Â§fTime left: Â§d"); //TODO ADD COUNTDOWN CLOCK HERE, TO THE END OF THE GAME (LASTS FOR MAX OF 5 minutes)
     		timeleft.setScore(6);
     		
     		
@@ -190,18 +199,18 @@ public class Core extends JavaPlugin implements Listener{
     		spacer3.setScore(5);
     		
     		
-    		Score hiderscount = ingameo.getScore("§fHiders: §d"); //TODO ADD REMAINING HIDERS HERE
+    		Score hiderscount = ingameo.getScore("Â§fHiders: Â§d"); //TODO ADD REMAINING HIDERS HERE
     		hiderscount.setScore(4);
     		
     		
-    		Score seekerscount = ingameo.getScore("§fSeekers: §d"); //TODO ADD AMOUNT OF SEEKERS CURRENTLY
+    		Score seekerscount = ingameo.getScore("Â§fSeekers: Â§d"); //TODO ADD AMOUNT OF SEEKERS CURRENTLY
     		seekerscount.setScore(3);
     		
     		
     		Score spacer4 = ingameo.getScore(ChatColor.DARK_GRAY.toString());
     		spacer4.setScore(2);
     		
-    		Score websiteurl = ingameo.getScore("§d   pdx-mc.com");
+    		Score websiteurl = ingameo.getScore("Â§d   pdx-mc.com");
     		websiteurl.setScore(1);
 
     		
@@ -258,6 +267,30 @@ public class Core extends JavaPlugin implements Listener{
 	 * END OF CONFIGURATION SECTION
 	 * 
 	 */
+
+
+	/*
+	 * 
+	 *  START OF PVP UPDATING
+	 * 
+	 */
 		
-	
+		
+		@SuppressWarnings("deprecation")
+		public void startPVPRunnable() {
+			Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
+
+				@Override
+				public void run() {
+					Bukkit.getWorld("world").setPVP(false);
+				}
+				
+			}, 20, 20);
+		}
+		
+	/*
+	 * 
+	 *  END OF PVP UPDATING
+	 * 
+	 */
 }

@@ -9,16 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.admin.hideandseek.Core;
 import me.admin.hideandseek.utils.GameStates;
 
-public class PlayerJoin implements Listener{
+public class PlayerLeaveJoin implements Listener{
 	
 	GameStates state;
 	private Core spawnPoint;
-
-    public PlayerJoin(Core spawnPoint)
+	
+    int CurrentPlayers = 1;
+	
+    public PlayerLeaveJoin(Core spawnPoint)
     {
         this.spawnPoint = spawnPoint;
     }
@@ -44,13 +47,25 @@ public class PlayerJoin implements Listener{
         player.teleport(loc);
         
         if (state.isState(state.PRE_GAME)) {
-        	event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined! §d(" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")");
+        	CurrentPlayers++;
+        	event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined!");
         }else {
         	event.setJoinMessage(null);
         }
 		}else {
 			
 			//TODO SET THEM TO SPECTATOR IN THE MIDDLE OF THE MAP
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent e) {
+		if (state.isState(state.PRE_GAME)) {
+			CurrentPlayers--;
+			e.setQuitMessage("§5" + e.getPlayer().getName().toString() + " quit!");
+		}else {
+			e.setQuitMessage(null);
+			
 		}
 	}
 

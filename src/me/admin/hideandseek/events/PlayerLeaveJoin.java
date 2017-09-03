@@ -45,7 +45,7 @@ public class PlayerLeaveJoin implements Listener{
         player.teleport(loc);
         
         if (state.isState(state.PRE_GAME)) {
-        	event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined!");
+        	event.setJoinMessage("§d" + event.getPlayer().getName().toString() + "§5 connected!");
         }else {
         	event.setJoinMessage(null);
         }
@@ -58,7 +58,7 @@ public class PlayerLeaveJoin implements Listener{
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		if (state.isState(state.PRE_GAME)) {
-			e.setQuitMessage("§5" + e.getPlayer().getName().toString() + " quit!");
+			e.setQuitMessage("§d" + e.getPlayer().getName().toString() + "§5 disconnected!");
 		}else {
 			e.setQuitMessage(null);
 			

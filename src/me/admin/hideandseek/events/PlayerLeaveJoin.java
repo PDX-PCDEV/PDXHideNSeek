@@ -19,8 +19,6 @@ public class PlayerLeaveJoin implements Listener{
 	GameStates state;
 	private Core spawnPoint;
 	
-    int CurrentPlayers = 1;
-	
     public PlayerLeaveJoin(Core spawnPoint)
     {
         this.spawnPoint = spawnPoint;
@@ -47,7 +45,6 @@ public class PlayerLeaveJoin implements Listener{
         player.teleport(loc);
         
         if (state.isState(state.PRE_GAME)) {
-        	CurrentPlayers++;
         	event.setJoinMessage("§5" + event.getPlayer().getName().toString() + " joined!");
         }else {
         	event.setJoinMessage(null);
@@ -61,7 +58,6 @@ public class PlayerLeaveJoin implements Listener{
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		if (state.isState(state.PRE_GAME)) {
-			CurrentPlayers--;
 			e.setQuitMessage("§5" + e.getPlayer().getName().toString() + " quit!");
 		}else {
 			e.setQuitMessage(null);

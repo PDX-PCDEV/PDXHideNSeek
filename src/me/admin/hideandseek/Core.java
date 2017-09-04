@@ -50,7 +50,7 @@ public class Core extends JavaPlugin implements Listener{
 		pm.registerEvents(new BlockEvents(), this);
 		instance = this;
 		
-		//EXTRA SHITE GOES HERE
+		//EXTRA STUFF GOES HERE
 		MinecraftServer.getServer().setMotd("§d§lPARADOX§5NETWORK §eᴮᴱᵀᴬ §a► §cCurrently playing Hide and Seek on §4" + getServer().getServerName().toUpperCase() + "§c!");
 		
 		GameStates.setState(GameStates.PRE_GAME);

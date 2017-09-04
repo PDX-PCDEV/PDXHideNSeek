@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.admin.hideandseek.commands.SetLobbyCommand;
+import me.admin.hideandseek.commands.adminCommand;
 import me.admin.hideandseek.events.BlockEvents;
 import me.admin.hideandseek.events.ChatFormatting;
 import me.admin.hideandseek.events.DamageEvent;
@@ -28,7 +29,8 @@ import me.admin.hideandseek.utils.Countdown;
 import me.admin.hideandseek.utils.GameStates;
 import net.minecraft.server.v1_12_R1.MinecraftServer;
 
-public class Core extends JavaPlugin implements Listener{
+public class Core extends JavaPlugin implements Listener
+{
 
 	GameStates state;
 	Countdown countdown = new Countdown();
@@ -56,7 +58,8 @@ public class Core extends JavaPlugin implements Listener{
 		GameStates.setState(GameStates.PRE_GAME);
 		countdown.startCountdown();
 		
-		for (Player player : getServer().getOnlinePlayers()) {
+		for (Player player : getServer().getOnlinePlayers()) 
+		{
 			refreshPlayerScoreboard(player);
 		}
 		
@@ -66,16 +69,19 @@ public class Core extends JavaPlugin implements Listener{
 		
 		//COMMANDS GO HERE!
 		getCommand("setlobby").setExecutor(new SetLobbyCommand(this));
+		getCommand("admin").setExecutor(new adminCommand(this));
 		
 	
 	}
 	
-	public static Core getInstance() {
+	public static Core getInstance() 
+	{
 		return instance;
 	}
 
 
-	public void onDisable() {
+	public void onDisable() 
+	{
 
 	}
 	
@@ -93,20 +99,25 @@ public class Core extends JavaPlugin implements Listener{
 	
 
     
-		public void refreshPlayerScoreboard(final Player player){
+		public void refreshPlayerScoreboard(final Player player)
+		{
 	        final int[] array = { 1, 2, 3 };
 
-	        getServer().getScheduler().scheduleSyncRepeatingTask((Plugin) this, new Runnable(){
+	        getServer().getScheduler().scheduleSyncRepeatingTask((Plugin) this, new Runnable()
+	        {
 	            public void run(){
 	                int[] arrayOfInt;
 	                int j = (arrayOfInt = array).length;
-	                for (int i = 0; i < j; i++){
+	                for (int i = 0; i < j; i++)
+	                {
 	                    int number = arrayOfInt[i];
 	                    if (number == 1) {
-	                    	if (state.isState(state.PRE_GAME)) {
+	                    	if (state.isState(state.PRE_GAME)) 
+	                    	{
 	            				setScoreboardLobby(player);
 	            			}
-	            			if (state.isState(state.IN_GAME)) {
+	            			if (state.isState(state.IN_GAME)) 
+	            			{
 	            				setScoreboardInGame(player);
 	            			}
 	                    }
@@ -117,7 +128,8 @@ public class Core extends JavaPlugin implements Listener{
 		
 	
 		
-		public void setScoreboardLobby(Player player){
+		public void setScoreboardLobby(Player player)
+		{
 
 			
             final ScoreboardManager sbManager = Bukkit.getScoreboardManager();
@@ -166,7 +178,8 @@ public class Core extends JavaPlugin implements Listener{
             player.setScoreboard(sBoard);
 }
 		
-		public void setScoreboardInGame(Player player){
+		public void setScoreboardInGame(Player player)
+		{
 
 			 final ScoreboardManager sbManager = Bukkit.getScoreboardManager();
             final org.bukkit.scoreboard.Scoreboard sBoardGAME = sbManager.getNewScoreboard();
@@ -218,7 +231,8 @@ public class Core extends JavaPlugin implements Listener{
 }
 		
 		@EventHandler
-		public void onJoin(PlayerJoinEvent event) {
+		public void onJoin(PlayerJoinEvent event) 
+		{
 			Player player = event.getPlayer();
 			refreshPlayerScoreboard(player);
 		}
@@ -235,28 +249,33 @@ public class Core extends JavaPlugin implements Listener{
 	 * 
 	*/
 		
-		public void registerLobbyConfig() {
+		public void registerLobbyConfig() 
+		{
 			getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
 		
-		private void registerLobbyFiles() {
+		private void registerLobbyFiles() 
+		{
 			this.lobbyFile = new File(getDataFolder(), "lobby.yml");
 			this.lobby = YamlConfiguration.loadConfiguration(this.lobbyFile);
 			saveLobby();
 		}
 		
-		public void saveLobby() {
+		public void saveLobby() 
+		{
 			try {
 				this.lobby.save(this.lobbyFile);
 			}catch (Exception localException) {}
 		}
 		
-		public File getLobbyFile() {
+		public File getLobbyFile() 
+		{
 			return this.lobbyFile;
 		}
 		
-		public FileConfiguration getLobby() {
+		public FileConfiguration getLobby()
+        {
 			return this.lobby;
 		}
 		
@@ -278,10 +297,12 @@ public class Core extends JavaPlugin implements Listener{
 		
 		@SuppressWarnings("deprecation")
 		public void startPVPRunnable() {
-			Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
+			Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() 
+			{
 
 				@Override
-				public void run() {
+				public void run() 
+				{
 					Bukkit.getWorld("world").setPVP(false);
 				}
 				

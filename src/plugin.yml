@@ -5,3 +5,5 @@ commands:
 commands:
     setlobby:
         description: setlobby cmd
+    admin:
+        description: admin command

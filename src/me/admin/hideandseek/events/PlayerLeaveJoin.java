@@ -14,7 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.admin.hideandseek.Core;
 import me.admin.hideandseek.utils.GameStates;
 
-public class PlayerLeaveJoin implements Listener{
+public class PlayerLeaveJoin implements Listener
+{
 	
 	GameStates state;
 	private Core spawnPoint;
@@ -25,13 +26,16 @@ public class PlayerLeaveJoin implements Listener{
     }
 	
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
+	public void onJoin(PlayerJoinEvent event)
+	{
 		Player player = event.getPlayer();
 		player.setGameMode(GameMode.SURVIVAL);
 		player.getInventory().clear();
-		if (state.isState(state.PRE_GAME)) {
+		if (state.isState(state.PRE_GAME)) 
+		{
 		FileConfiguration i = this.spawnPoint.getLobby();
-        if (!i.contains("world")){
+        if (!i.contains("world"))
+        {
             player.sendMessage("§4** §cLobby not set. Contact a senior member of staff.");
             return;
         }
@@ -44,22 +48,28 @@ public class PlayerLeaveJoin implements Listener{
         Location loc = new Location(w, x, y, z, yaw, pitch);
         player.teleport(loc);
         
-        if (state.isState(state.PRE_GAME)) {
+        if (state.isState(state.PRE_GAME)) 
+        {
         	event.setJoinMessage("§d" + event.getPlayer().getName().toString() + "§5 connected!");
-        }else {
+        }else 
+        {
         	event.setJoinMessage(null);
         }
-		}else {
+		}else 
+		{
 			
 			//TODO SET THEM TO SPECTATOR IN THE MIDDLE OF THE MAP
 		}
 	}
 	
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent e) {
-		if (state.isState(state.PRE_GAME)) {
+	public void onPlayerQuit(PlayerQuitEvent e) 
+	{
+		if (state.isState(state.PRE_GAME))
+		{
 			e.setQuitMessage("§d" + e.getPlayer().getName().toString() + "§5 disconnected!");
-		}else {
+		}else 
+		{
 			e.setQuitMessage(null);
 			
 		}

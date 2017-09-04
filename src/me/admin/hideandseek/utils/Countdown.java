@@ -5,7 +5,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.admin.hideandseek.Core;
 
-public class Countdown {
+public class Countdown 
+{
 	
 	static Core pl;
 	
@@ -32,18 +33,25 @@ public class Countdown {
 
 	@SuppressWarnings("deprecation")
 	public void startCountdown() {
-		 taskID = Core.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask((Core.getInstance()), new BukkitRunnable(){
+		 taskID = Core.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask((Core.getInstance()), new BukkitRunnable()
+		 {
 			@Override
-			public void run() {
-				if (state.isState(state.PRE_GAME)) {
-					if (timer != 0) {
+			public void run() 
+			{
+				if (state.isState(state.PRE_GAME)) 
+				{
+					if (timer != 0) 
+					{
 						timer--;
 						formatIntoHHMMSS();
-					}else {
-						if (Bukkit.getServer().getOnlinePlayers().size() <= 3) {
+					}else 
+					{
+						if (Bukkit.getServer().getOnlinePlayers().size() <= 3) 
+						{
 							Bukkit.broadcastMessage("§5** §dNot enough players to start! Please wait until more join!§d");
 							restartTimer();
-						}else {
+						}else 
+						{
 							//TODO BEGIN THE GAME HERE
 							state.setState(state.IN_GAME);
 						}
@@ -55,7 +63,8 @@ public class Countdown {
 	}
 
 
-	public void restartTimer() {
+	public void restartTimer() 
+	{
 		Bukkit.getScheduler().cancelTask(taskID);
 		timer = 100;
 		startCountdown();

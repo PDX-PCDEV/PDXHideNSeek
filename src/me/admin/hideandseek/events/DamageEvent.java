@@ -7,14 +7,18 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import me.admin.hideandseek.utils.GameStates;
 
-public class DamageEvent implements Listener{
+public class DamageEvent implements Listener
+{
 	
 	GameStates state;
 	
 	@EventHandler
-	public void onDamage(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player) {
-			if (state.isState(state.PRE_GAME)) {
+	public void onDamage(EntityDamageEvent event) 
+	{
+		if (event.getEntity() instanceof Player)
+		{
+			if (state.isState(state.PRE_GAME))
+			{
 				event.setCancelled(true);
 			}
 		}

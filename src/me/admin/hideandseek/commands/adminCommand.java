@@ -27,7 +27,11 @@ public class adminCommand implements CommandExecutor
 		if (cmd.getName().equalsIgnoreCase("admin")) 
 		{
 			Player player = (Player)sender;
-			openAdminMenu(player);
+			if (sender.isOp()) {
+				openAdminMenu(player);
+			}else {
+				sender.sendMessage("§4** §cYou are not a server admin! You may not perform this command!");
+			}
 		}
 		return true;
 	}

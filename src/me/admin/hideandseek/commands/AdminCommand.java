@@ -1,8 +1,8 @@
 package me.admin.hideandseek.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ public class adminCommand implements CommandExecutor
 			if (sender.isOp()) {
 				openAdminMenu(player);
 			}else {
-				sender.sendMessage("§4** §cYou are not a server admin! You may not perform this command!");
+				sender.sendMessage("Â§4** Â§cYou are not a server admin! You may not perform this command!");
 			}
 		}
 		return true;
@@ -38,27 +38,26 @@ public class adminCommand implements CommandExecutor
 	
 	public void openAdminMenu(Player player) 
 	{
-		Inventory inv = Bukkit.createInventory(null, 27, "§f§lAdmin GUI");
+		Inventory inv = Bukkit.createInventory(null, 9, "Admin GUI (Hide & Seek)");
 		
 		ItemStack start = new ItemStack(Material.CONCRETE, 1,  (byte)5);
 		ItemMeta startMeta = start.getItemMeta();
-		startMeta.setDisplayName("§a§lStart the game!");
+		startMeta.setDisplayName(ChatColor.GREEN + "Start the game!");
 		start.setItemMeta(startMeta);
-		
-		ItemStack cancel = new ItemStack(Material.BARRIER);
-		ItemMeta cancelMeta = cancel.getItemMeta();
-		cancelMeta.setDisplayName("§fClose the menu!");
-		cancel.setItemMeta(cancelMeta);
 		
 		ItemStack restart = new ItemStack(Material.CONCRETE, 1,  (byte)4);
 		ItemMeta restartMeta = start.getItemMeta();
-		restartMeta.setDisplayName("§6§lRestart the game!");
+		restartMeta.setDisplayName(ChatColor.GOLD + "Restart the game!");
 		restart.setItemMeta(restartMeta);
 	
+		ItemStack cancel = new ItemStack(Material.BARRIER);
+		ItemMeta cancelMeta = cancel.getItemMeta();
+		cancelMeta.setDisplayName("Close the menu!");
+		cancel.setItemMeta(cancelMeta);
 		
-		inv.setItem(12, start);
-		inv.setItem(13, cancel);
-		inv.setItem(14, restart);
+		inv.setItem(3, start);
+		inv.setItem(4, restart);
+		inv.setItem(5, cancel);
 		player.openInventory(inv);
 	}
 

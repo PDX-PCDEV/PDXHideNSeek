@@ -19,7 +19,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.admin.hideandseek.commands.SetLobbyCommand;
-import me.admin.hideandseek.commands.adminCommand;
+import me.admin.hideandseek.commands.AdminCommand;
 import me.admin.hideandseek.events.BlockEvents;
 import me.admin.hideandseek.events.ChatFormatting;
 import me.admin.hideandseek.events.DamageEvent;
@@ -69,7 +69,7 @@ public class Core extends JavaPlugin implements Listener
 		
 		//COMMANDS GO HERE!
 		getCommand("setlobby").setExecutor(new SetLobbyCommand(this));
-		getCommand("admin").setExecutor(new adminCommand(this));
+		getCommand("admin").setExecutor(new AdminCommand(this));
 		
 	
 	}
